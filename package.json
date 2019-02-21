@@ -8,10 +8,13 @@
   "main": "dist/index.js",
   "scripts": {
     "lint": "eslint src",
-    "build": "rollup --config",
-    "check-package-version": "check-package-version",
+    "prebuild": "npm run clean",
+    "build": "rollup -c",
+    "clean": "rimraf dist",
+    "prepare": "npm run prebuild && npm run build",
     "test": "jest",
-    "test-ci": "npm run test -- --coverage --ci --verbose=false --coverageReporters=lcov --coverageReporters=text-summary"
+    "test:ci": "npm run test -- --coverage --ci --verbose=false --coverageReporters=lcov --coverageReporters=text-summary",
+    "start:example": "webpack-dev-server --config ./webpack.config.js --mode development"
   },
   "repository": {
     "type": "git",
@@ -40,6 +43,7 @@
     "babel-jest": "^23.6.0",
     "babel-polyfill": "^6.26.0",
     "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.0.5",
     "enzyme": "^3.8.0",
     "enzyme-adapter-react-16": "^1.8.0",
     "eslint": "^5.12.1",
@@ -63,7 +67,10 @@
     "rollup-plugin-node-globals": "^1.4.0",
     "rollup-plugin-node-resolve": "^4.0.0",
     "rollup-plugin-uglify": "^6.0.1",
-    "sinon": "^7.2.3"
+    "sinon": "^7.2.3",
+    "webpack": "^4.29.0",
+    "webpack-cli": "^3.2.1",
+    "webpack-dev-server": "^3.1.14"
   },
   "lint-staged": {
     "*.js": [
