@@ -11,18 +11,30 @@ class Test extends React.Component {
     if (this.props.loading) {
       return <p>loading</p>;
     }
-    return <p>Test</p>;
+    return (
+      <ol>
+        {this.props.books.map(b => (
+          <li key={b.name}>{b.name}</li>
+        ))}
+      </ol>
+    );
   }
 }
 
-export const mapApiProps = ({ loading, data, error }) => ({
+// Same object: https://github.com/axios/axios#axios-api
+const apiSettings = {
+  method: "get",
+  url: "https://jsonplaceholder.typicode.com/users"
+};
+
+const mapApiProps = ({ loading, data, error }) => ({
   loading,
   books: data,
   error,
   complete: !loading && data && !error ? "true" : "false"
 });
 
-const TestConnected = connectApiClient(mapApiProps)(Test);
+const TestConnected = connectApiClient(apiSettings, mapApiProps)(Test);
 
 ReactDOM.render(<TestConnected />, document.getElementById("root"));
 

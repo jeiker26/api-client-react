@@ -2,15 +2,16 @@ import { Observable } from "rxjs";
 import axios from "axios";
 
 export class Apiclient {
-  constructor() {
+  constructor(apiSettings) {
     this.client$;
     this.fetch();
+
+    this.settings = apiSettings;
   }
 
   fetch = () => {
     this.client$ = Observable.create(observer => {
-      axios
-        .get("https://jsonplaceholder.typicode.com/users")
+      axios(this.settings)
         .then(response => {
           observer.next(response.data);
           observer.complete();

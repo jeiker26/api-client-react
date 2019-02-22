@@ -2,15 +2,12 @@ import React from "react";
 import { Apiclient } from "../src";
 import hoistNonReactStatics from "hoist-non-react-statics";
 
-export const connectApiClient = mapApiProps => {
+export const connectApiClient = (apiSettings, mapApiProps) => {
   return WrappedComponent => {
     class ConnectApiClient extends React.Component {
       constructor(props) {
         super(props);
-
-        console.log(mapApiProps(props));
-
-        this.Apiclient$ = new Apiclient().getApiClient();
+        this.Apiclient$ = new Apiclient(apiSettings).getApiClient();
 
         this.state = {
           loading: true,
@@ -18,6 +15,8 @@ export const connectApiClient = mapApiProps => {
           data: null
         };
 
+        console.log("[ConnectApiClient] Init");
+        console.log("[ConnectApiClient] Loading");
         this.defaultInit();
       }
 
@@ -30,17 +29,17 @@ export const connectApiClient = mapApiProps => {
       };
 
       onNext = data => {
-        console.log("[data]");
+        console.log("[ConnectApiClient] Data");
         this.setState({ data, loading: false });
       };
 
       onComplete = () => {
-        console.log("[complete]");
+        console.log("[ConnectApiClient] complete");
         this.setState({ loading: false });
       };
 
       onError = error => {
-        console.log("[error]");
+        console.log("[ConnectApiClient] error");
         this.setState({ loading: false, error });
       };
 
