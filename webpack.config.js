@@ -2,7 +2,7 @@ const webpack = require("webpack"); // eslint-disable-line
 const path = require("path");
 
 const config = {
-  entry: "./example/index.js",
+  entry: ["babel-polyfill", "./example/index.js"],
   output: {
     path: path.resolve(__dirname, "example/dist"),
     filename: "bundle.js"
