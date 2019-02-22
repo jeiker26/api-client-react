@@ -2,7 +2,7 @@ import React from "react";
 import { Apiclient } from "../src";
 import hoistNonReactStatics from "hoist-non-react-statics";
 
-export const connectApiClient = (apiSettings, mapApiProps) => {
+export const connectApiClient = (apiSettings, mapApiProps = false) => {
   return WrappedComponent => {
     class ConnectApiClient extends React.Component {
       constructor(props) {
@@ -43,8 +43,10 @@ export const connectApiClient = (apiSettings, mapApiProps) => {
         this.setState({ loading: false, error });
       };
 
+      interfaceProps = () => (mapApiProps ? mapApiProps(this.state) : this.state);
+
       render() {
-        return <WrappedComponent {...mapApiProps(this.state)} {...this.props} />;
+        return <WrappedComponent {...this.interfaceProps()} {...this.props} />;
       }
     }
 
