@@ -14,7 +14,7 @@ export const connectApiClient = (apiSettings = false, mapApiProps = false) => {
           data: null
         };
 
-        apiSettings && this.setConfig();
+        apiSettings && this.setConfig(apiSettings);
       }
 
       setConfig = settings => {
