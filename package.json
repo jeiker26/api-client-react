@@ -1,7 +1,7 @@
 {
-  "name": "api-client",
+  "name": "api-client-react",
   "version": "0.0.1",
-  "description": "api client with axios",
+  "description": "api client react",
   "files": [
     "dist"
   ],

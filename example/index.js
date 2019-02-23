@@ -5,6 +5,15 @@ import { connectApiClient } from "../src/connect";
 class Test extends React.Component {
   constructor(props) {
     super(props);
+    this.getData();
+  }
+
+  // option 1
+  getData() {
+    this.props.apiClient.fetch({
+      method: "get",
+      url: "https://jsonplaceholder.typicode.com/users"
+    });
   }
 
   render() {
@@ -22,10 +31,11 @@ class Test extends React.Component {
 }
 
 // Same object: https://github.com/axios/axios#axios-api
+/**  option 2
 const apiSettings = {
   method: "get",
   url: "https://jsonplaceholder.typicode.com/users"
-};
+}; */
 
 const mapApiProps = ({ loading, data, error }) => ({
   loading,
@@ -34,7 +44,7 @@ const mapApiProps = ({ loading, data, error }) => ({
   complete: !loading && data && !error ? "true" : "false"
 });
 
-const TestConnected = connectApiClient(apiSettings, mapApiProps)(Test);
+const TestConnected = connectApiClient(false, mapApiProps)(Test);
 
 ReactDOM.render(<TestConnected />, document.getElementById("root"));
 

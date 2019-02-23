@@ -2,25 +2,32 @@ import React from "react";
 import { Apiclient } from "../src";
 import hoistNonReactStatics from "hoist-non-react-statics";
 
-export const connectApiClient = (apiSettings, mapApiProps = false) => {
+export const connectApiClient = (apiSettings = false, mapApiProps = false) => {
   return WrappedComponent => {
     class ConnectApiClient extends React.Component {
       constructor(props) {
         super(props);
-        this.Apiclient$ = new Apiclient(apiSettings).getApiClient();
-
+        this.config;
         this.state = {
           loading: true,
           error: false,
           data: null
         };
 
-        console.log("[ConnectApiClient] Init");
-        console.log("[ConnectApiClient] Loading");
-        this.defaultInit();
+        apiSettings && this.setConfig();
       }
 
-      defaultInit = () => {
+      setConfig = settings => {
+        this.config = settings;
+        this.getApiClient();
+      };
+
+      getApiClient = () => {
+        this.Apiclient$ = new Apiclient(this.config).getApiClient();
+        this.initSubcribe();
+      };
+
+      initSubcribe = () => {
         this.Apiclient$.subscribe({
           next: this.onNext,
           complete: this.onComplete,
@@ -44,9 +51,20 @@ export const connectApiClient = (apiSettings, mapApiProps = false) => {
       };
 
       interfaceProps = () => (mapApiProps ? mapApiProps(this.state) : this.state);
+      interfaceMethods = () => {
+        return {
+          fetch: settings => this.setConfig(settings)
+        };
+      };
 
       render() {
-        return <WrappedComponent {...this.interfaceProps()} {...this.props} />;
+        return (
+          <WrappedComponent
+            {...this.interfaceProps()}
+            apiClient={this.interfaceMethods()}
+            {...this.props}
+          />
+        );
       }
     }
 
