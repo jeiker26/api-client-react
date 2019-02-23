@@ -11,14 +11,16 @@ module.exports = {
   output: {
     file: "dist/index.js",
     format: "umd",
-    name: "apiClient",
+    name: "apiClientReact",
     globals: {
-      "lodash.clonedeep": "cloneDeep",
+      react: "React",
       axios: "axios",
-      "axios-retry": "axiosRetry"
+      "axios-retry": "axiosRetry",
+      rxjs: "rxjs",
+      "hoist-non-react-statics": "hoistNonReactStatics"
     }
   },
-  external: ["axios", "axios-retry", "lodash.clonedeep"],
+  external: ["react", "hoist-non-react-statics", "axios", "axios-retry", "rxjs"],
   plugins: [
     resolve({
       module: true,

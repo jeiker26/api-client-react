@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { connectApiClient } from "../src/connect";
+import { connectApiClient } from "../dist";
 
 class Test extends React.Component {
   constructor(props) {

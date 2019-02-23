@@ -1,5 +1,5 @@
 import React from "react";
-import { Apiclient } from "../src";
+import { Apiclient } from "./apiClient";
 import hoistNonReactStatics from "hoist-non-react-statics";
 
 export const connectApiClient = (apiSettings = false, mapApiProps = false) => {
