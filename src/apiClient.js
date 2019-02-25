@@ -4,9 +4,9 @@ import axios from "axios";
 export class Apiclient {
   constructor(apiSettings) {
     this.client$;
-    this.fetch();
-
     this.settings = apiSettings;
+
+    this.fetch();
   }
 
   fetch = () => {

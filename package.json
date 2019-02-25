@@ -12,8 +12,9 @@
     "build": "rollup -c",
     "clean": "rimraf dist",
     "prepare": "npm run prebuild && npm run build",
-    "test": "jest",
-    "test:ci": "npm run test -- --coverage --ci --verbose=false --coverageReporters=lcov --coverageReporters=text-summary",
+    "test": "BABEL_ENV=test jest  --watchAll --no-cache --config ./jest.config.js",
+    "test:coverage": "BABEL_ENV=test jest --watchAll --coverage --no-cache --config ./jest.config.js",
+    "test:ci": "BABEL_ENV=test jest --coverage --no-cache --config ./jest.config.js --runInBand",
     "start:example": "webpack-dev-server --config ./webpack.config.js --mode development",
     "release": "npm publish --access=public"
   },
