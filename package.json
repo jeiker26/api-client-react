@@ -1,7 +1,7 @@
 {
   "name": "api-client-react",
-  "version": "0.0.3",
-  "description": "api client react",
+  "version": "1.0.0",
+  "description": "Small library to simplify the connection with api in React.",
   "files": [
     "dist"
   ],
