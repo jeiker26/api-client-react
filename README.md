@@ -20,7 +20,7 @@ With a simple **higher**-**order** component (HOC), you can get:
 ## Getting Started
 
 ### Installation
-You can install with [NPM][npm-global-url]: api-client-react[npm-package-url]
+You can install with [NPM][npm-global-url]: [api-client-react][npm-package-url]
 ```js
 npm i --save api-client-react
 ```
