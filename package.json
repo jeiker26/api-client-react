@@ -1,6 +1,6 @@
 {
   "name": "api-client-react",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "description": "api client react",
   "files": [
     "dist"

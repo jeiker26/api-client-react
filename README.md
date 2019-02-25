@@ -20,7 +20,7 @@ With a simple **higher**-**order** component (HOC), you can get:
 ## Getting Started
 
 ### Installation
-You can install with [NPM][npm-global-url]: [npm-name][npm-package-url]
+You can install with [NPM][npm-global-url]: api-client-react[npm-package-url]
 ```js
 npm i --save api-client-react
 ```
@@ -93,21 +93,20 @@ MIT License.
 
 
 [npm-global-url]: https://npmjs.com/
-[npm-name]: api-client-react
 [npm-package-url]: https://www.npmjs.com/package/api-client-react
 [pr-image]: https://badgen.net/badge/PRs/welcome/green
-[minzip-url]: https://badgen.net/bundlephobia/minzip/@jkr26/react-forms-builder-logic
+[minzip-url]: https://badgen.net/bundlephobia/minzip/api-client-react
 [code-style-image]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg
-[license-image]: https://img.shields.io/github/license/jeiker26/react-builder-form.svg
-[license-url]: https://github.com/jeiker26/react-builder-form
-[last-commit-image]: https://img.shields.io/github/last-commit/jeiker26/react-builder-form.svg
-[last-commit-url]: https://github.com/jeiker26/react-builder-form/commits
+[license-image]: https://img.shields.io/github/license/jeiker26/api-client-react.svg
+[license-url]: https://github.com/jeiker26/api-client-react
+[last-commit-image]: https://img.shields.io/github/last-commit/jeiker26/api-client-react.svg
+[last-commit-url]: https://github.com/jeiker26/api-client-react/commits
 
-[npm-downloads-image]: https://img.shields.io/npm/dm/@jkr26/react-forms-builder-logic.svg
-[npm-downloads-url]: https://www.npmjs.com/package/@jkr26/react-forms-builder-logic
-[npm-dependencies-image]: https://img.shields.io/david/jeiker26/react-builder-form.svg
-[npm-dependencies-url]: https://david-dm.org/jeiker26/react-builder-form
-[release-image]: https://img.shields.io/github/release-date/jeiker26/react-builder-form.svg
-[release-url]: https://github.com/jeiker26/react-builder-form/releases
+[npm-downloads-image]: https://img.shields.io/npm/dm/api-client-react.svg
+[npm-downloads-url]: https://www.npmjs.com/package/api-client-react
+[npm-dependencies-image]: https://img.shields.io/david/jeiker26/api-client-react.svg
+[npm-dependencies-url]: https://david-dm.org/jeiker26/api-client-react
+[release-image]: https://img.shields.io/github/release-date/jeiker26/api-client-react.svg
+[release-url]: https://github.com/jeiker26/api-client-react/releases
 [standard-image]: https://img.shields.io/badge/code%20style-standard-brightgreen.svg
 [standard-url]: http://standardjs.com/
