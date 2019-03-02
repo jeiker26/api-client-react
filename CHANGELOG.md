@@ -14,3 +14,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 
 ### Removed
+
+
+## [2.0.0] - 2019-03-03
+### Breaking Changes
+- Make changes so that the library allows multiple calls.
