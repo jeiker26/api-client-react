@@ -8,14 +8,16 @@ Small library to simplify the connection with api in React.
 [![Last commit][last-commit-image]][last-commit-url] [![PRs welcome][pr-image]][code-style-image] ![minzipped size][minzip-url]
 
 With a simple **higher**-**order** component (HOC), you can get:
-1.  The following props: `{ loading, error, data }`
+1.  The following props for section: `{ loading, error, data }`
 2.  The following prop: `apiClient`, with which you can interact with API.
+* Note: Each API call is stored in a section
 
 ------
 
 ## Examples
-- [Simple Form: API from params](https://codesandbox.io/s/j4rj8wl709)
-- [Simple Form: API from methods](https://codesandbox.io/s/0pyvjpk62l)
+- [Simple example: API from params](https://codesandbox.io/s/j4rj8wl709)
+- [Simple example: API from methods](https://codesandbox.io/s/0pyvjpk62l)
+- [Advanced example](https://codesandbox.io/s/wq9rk5oo8l)
 
 ## Getting Started
 
@@ -29,60 +31,58 @@ npm i --save api-client-react
 ```jsx
 import { connectApiClient } from "api-client-react";
 
-const ExampleconnectApiClientComponent = ({ loading, users, complete, error }) => {
-  if (loading) {
+const ExampleconnectApiClientComponent = ({ users }) => {
+  if (users.loading) {
     return <p>loading</p>;
   }
 
-  if (error) {
+  if (users.error) {
     return <p>Error</p>;
   }
 
-  if (users) {
+  if (users.data) {
     return (
       <ol>
-        {users.map(b => (
+        {users.data.map(b => (
           <li key={b.name}>{b.name}</li>
         ))}
       </ol>
     );
   }
-
-  return <strong>{complete}</strong>;
 }
 
-// Same object: https://github.com/axios/axios#axios-api
-const apiSettings = {
-  method: "get",
-  url: "https://jsonplaceholder.typicode.com/users"
+
+const config = {
+  apiConfig: { // Same object: https://github.com/axios/axios#axios-api
+    method: "get",
+    url: "https://jsonplaceholder.typicode.com/users"
+  },
+  section: "users" // Reference section
 };
 
-const mapApiProps = ({ loading, data, error }) => ({
-  loading,
-  users: data,
-  error,
-  complete: !loading && data && !error ? "true" : "false"
-});
+const componentSections = ["users"];
 
-export const ExampleconnectApiClient = connectApiClient(apiSettings, mapApiProps)(ExampleconnectApiClientComponent);
+export const ExampleconnectApiClient = connectApiClient(componentSections, config)(ExampleconnectApiClientComponent);
 ```
 NOTE: If you want to make the call in a method, it is also possible: View codesandbox.
 
 
 ### Doc
 #### Functions
-| function | params | description |
+| function (render props) | params | description |
 |--|--|--|
-| `apiClient.fetch({config})` | Same object: https://github.com/axios/axios#axios-api | Execute axios fetch with the configuration provided |
-
+| `apiClient.fetch({ apiConfig: Object, section: String })` | apiConfig: Same object: https://github.com/axios/axios#axios-api | Execute axios fetch with the configuration provided And associate the response to your section |
+Note: Important to send properties `apiConfig` and `section`
 
 #### Render props
+You will receive a props for each section that is an object composed of:
+
 | prop | types | default value | description |
 |--|--|--|--|
-| `error` | `{ elementKey: String[], ... }` | `{}` | Api error: 404, 503, ... |
-| `data` | `{ element: String, ... }` | `{}` | Data response |
+| `error` | `error` | `false` | Api error |
+| `data` | `result` |  | Data response |
 | `loading` | `boolean` | `true`| Only `true` during call response period. |
-| `apiClient` | `object` | `{ fetch: function }`| Method that allows you to make the call to api.|
+
 
 
 ---

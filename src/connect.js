@@ -2,58 +2,116 @@ import React from "react";
 import { Apiclient } from "./apiClient";
 import hoistNonReactStatics from "hoist-non-react-statics";
 
-export const connectApiClient = (apiSettings = false, mapApiProps = false) => {
+const initialSection = {
+  loading: false,
+  error: false,
+  data: null,
+  _subscription: null
+};
+
+export const connectApiClient = (componentSections = [], apiSettings = false) => {
   return WrappedComponent => {
     class ConnectApiClient extends React.Component {
       constructor(props) {
         super(props);
-        this.config;
-        this.state = {
-          loading: true,
-          error: false,
-          data: null
-        };
 
-        apiSettings && this.setConfig(apiSettings);
+        if (apiSettings && apiSettings.apiConfig && apiSettings.section) {
+          let sections = this.generateSections(componentSections);
+
+          sections[apiSettings.section].loading = true;
+          sections[apiSettings.section]._subscription = this._fetch(
+            apiSettings.apiConfig,
+            apiSettings.section
+          );
+
+          this.state = {
+            response: sections
+          };
+        } else {
+          this.state = {
+            response: this.generateSections(componentSections)
+          };
+        }
       }
 
-      setConfig = settings => {
-        this.config = settings;
-        this.getApiClient();
+      generateSections = sections => {
+        let sectionInitialState = [];
+
+        sections.forEach(s => {
+          sectionInitialState[s] = { ...initialSection };
+        });
+
+        return sectionInitialState;
       };
 
-      getApiClient = () => {
-        this.Apiclient$ = new Apiclient(this.config).getApiClient();
-        this.initSubcribe();
-      };
+      _fetch = (settings, section) => {
+        const apiClient = new Apiclient(settings).getApiClient();
 
-      initSubcribe = () => {
-        this.Apiclient$.subscribe({
-          next: this.onNext,
-          complete: this.onComplete,
-          error: this.onError
+        return apiClient.subscribe({
+          next: data => this.onNext(data, section),
+          complete: () => this.onComplete(section),
+          error: error => this.onError(error, section)
         });
       };
 
-      onNext = data => {
+      onNext = (data, section) => {
         console.log("[ConnectApiClient] Data");
-        this.setState({ data, loading: false });
+        this.setState(preState => {
+          let { response } = preState;
+
+          response[section].data = data;
+          response[section].loading = false;
+
+          return {
+            response
+          };
+        });
       };
 
-      onComplete = () => {
+      onComplete = section => {
         console.log("[ConnectApiClient] complete");
-        this.setState({ loading: false });
+        this.setState(preState => {
+          let { response } = preState;
+
+          response[section].loading = false;
+
+          return {
+            response
+          };
+        });
       };
 
-      onError = error => {
+      onError = (error, section) => {
         console.log("[ConnectApiClient] error");
-        this.setState({ loading: false, error });
+        this.setState(preState => {
+          let { response } = preState;
+
+          response[section].error = error;
+          response[section].loading = false;
+
+          return {
+            response
+          };
+        });
       };
 
-      interfaceProps = () => (mapApiProps ? mapApiProps(this.state) : this.state);
+      fetch = (settings, section) => {
+        this.setState(preState => {
+          let { response } = preState;
+
+          response[section].loading = true;
+          response[section]._subscription = this._fetch(settings, section);
+
+          return {
+            response
+          };
+        });
+      };
+
+      interfaceProps = () => ({ ...this.state.response });
       interfaceMethods = () => {
         return {
-          fetch: settings => this.setConfig(settings)
+          fetch: this.fetch
         };
       };
 
