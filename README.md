@@ -65,14 +65,13 @@ const componentSections = ["users"];
 export const ExampleconnectApiClient = connectApiClient(componentSections, config)(ExampleconnectApiClientComponent);
 ```
 NOTE: If you want to make the call in a method, it is also possible: View codesandbox.
-
+Note: Important to send properties `apiConfig` and `section` in config property.
 
 ### Doc
 #### Functions
 | function (render props) | params | description |
 |--|--|--|
-| `apiClient.fetch({ apiConfig: Object, section: String })` | apiConfig: Same object: https://github.com/axios/axios#axios-api | Execute axios fetch with the configuration provided And associate the response to your section |
-Note: Important to send properties `apiConfig` and `section`
+| `apiClient.fetch( apiConfigObject, "sectionExample" )` | apiConfigObject: Same object: https://github.com/axios/axios#axios-api | Execute axios fetch with the configuration provided And associate the response to your section |
 
 #### Render props
 You will receive a props for each section that is an object composed of:
@@ -82,7 +81,6 @@ You will receive a props for each section that is an object composed of:
 | `error` | `error` | `false` | Api error |
 | `data` | `result` |  | Data response |
 | `loading` | `boolean` | `true`| Only `true` during call response period. |
-
 
 
 ---
