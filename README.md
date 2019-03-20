@@ -8,7 +8,7 @@ Small library to simplify the connection with api in React.
 [![Last commit][last-commit-image]][last-commit-url] [![PRs welcome][pr-image]][code-style-image] ![minzipped size][minzip-url]
 
 With a simple **higher**-**order** component (HOC), you can get:
-1.  The following props for section: `{ loading, error, data }`
+1.  The following props for section: `{ loading, error, data, complete }`
 2.  The following prop: `apiClient`, with which you can interact with API.
 * Note: Each API call is stored in a section
 
@@ -80,7 +80,8 @@ You will receive a props for each section that is an object composed of:
 |--|--|--|--|
 | `error` | `error` | `false` | Api error |
 | `data` | `result` |  | Data response |
-| `loading` | `boolean` | `true`| Only `true` during call response period. |
+| `loading` | `boolean` | `false`| Only `true` during call response period. |
+| `complete` | `boolean` | `false`| Only `true` when api call is finished. |
 
 
 ---
