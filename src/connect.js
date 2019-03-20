@@ -5,6 +5,7 @@ import hoistNonReactStatics from "hoist-non-react-statics";
 const initialSection = {
   loading: false,
   error: false,
+  complete: false,
   data: null,
   _subscription: null
 };
@@ -74,6 +75,7 @@ export const connectApiClient = (componentSections = [], apiSettings = false) =>
           let { response } = preState;
 
           response[section].loading = false;
+          response[section].complete = true;
 
           return {
             response
@@ -100,6 +102,7 @@ export const connectApiClient = (componentSections = [], apiSettings = false) =>
           let { response } = preState;
 
           response[section].loading = true;
+          response[section].complete = false;
           response[section]._subscription = this._fetch(settings, section);
 
           return {
